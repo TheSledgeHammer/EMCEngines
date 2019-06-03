@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "emcengines",
+    "name": "EMCEngines",
+    "description": "Adds Engines that generate RF from EMC",
+    "version": "$version",
+    "mcversion": "${mcversion}",
+    "credits": "ProjectE & GroovyMC",
+    "logoFile": "",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [ "TheSledgeHammer" ],
+    "dependencies": [ "projecte" ]
+  }
+]

@@ -5,9 +5,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
-public class TileGenerator extends TileEmcProviderRF implements ITickable {
+public class TileEmcGeneratorBase extends TileEmcRF implements ITickable {
 
-    public TileGenerator(String tileName, int capacity, int maxTransfer, long currentEMC, long maximumEMC) {
+    public TileEmcGeneratorBase(String tileName, int capacity, int maxTransfer, long currentEMC, long maximumEMC) {
         super(tileName, capacity, maxTransfer, currentEMC, maximumEMC);
     }
 

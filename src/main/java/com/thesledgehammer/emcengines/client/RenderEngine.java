@@ -1,13 +1,13 @@
 package com.thesledgehammer.emcengines.client;
 
-import com.thesledgehammer.emcengines.tiles.engines.TileEngine;
+import com.thesledgehammer.emcengines.tiles.engines.TileEmcEngineBase;
 import com.thesledgehammer.groovymc.client.model.MutableQuad;
 import com.thesledgehammer.groovymc.client.render.GroovyFastTESR;
 import net.minecraft.client.renderer.BufferBuilder;
 
 import javax.annotation.Nonnull;
 
-public abstract class RenderEngine<T extends TileEngine> extends GroovyFastTESR<T> {
+public abstract class RenderEngine<T extends TileEmcEngineBase> extends GroovyFastTESR<T> {
 
     @Override
     public void renderTileEntityFast(@Nonnull T engine, double x, double y, double z, float partialTicks, int destroyStage, float partial, BufferBuilder bufferBuilder) {

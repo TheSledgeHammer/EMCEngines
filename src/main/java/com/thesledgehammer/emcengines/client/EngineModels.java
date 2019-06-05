@@ -1,8 +1,8 @@
 package com.thesledgehammer.emcengines.client;
 
 import com.thesledgehammer.emcengines.EnumPowerStage;
-import com.thesledgehammer.emcengines.tiles.engines.EMCEngineMK1;
-import com.thesledgehammer.emcengines.tiles.engines.TileEngine;
+import com.thesledgehammer.emcengines.tiles.engines.TileEmcEngineMK1;
+import com.thesledgehammer.emcengines.tiles.engines.TileEmcEngineBase;
 import com.thesledgehammer.groovymc.client.model.GroovyStaticModel;
 import com.thesledgehammer.groovymc.client.model.ModelEntryStatic;
 import com.thesledgehammer.groovymc.client.model.MutableQuad;
@@ -32,12 +32,12 @@ public class EngineModels {
         ENGINE_FACING.setValue(EnumFacing.UP);
     }
 
-    private static MutableQuad[] getEngineQuads(ModelEntryStatic model, TileEngine tile, float partialTicks) {
+    private static MutableQuad[] getEngineQuads(ModelEntryStatic model, TileEmcEngineBase tile, float partialTicks) {
 
         return model.getCutoutQuads();
     }
 
-    public static MutableQuad[] getMK1EngineQuads(EMCEngineMK1 tile, float partialTicks) {
+    public static MutableQuad[] getMK1EngineQuads(TileEmcEngineMK1 tile, float partialTicks) {
         return getEngineQuads(ENGINE_MK1, tile, partialTicks);
     }
 }

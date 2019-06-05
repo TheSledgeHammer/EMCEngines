@@ -7,9 +7,9 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileEngine extends TileEmcAcceptorRF implements ITickable {
+public class TileEmcEngineBase extends TileEmcRF implements ITickable {
 
-    public TileEngine(String tileName, int feCapacity, int feTransfer, long emcMax, long emcCurrent) {
+    public TileEmcEngineBase(String tileName, int feCapacity, int feTransfer, long emcMax, long emcCurrent) {
        super(tileName, feCapacity, feTransfer, emcMax, emcCurrent);
     }
 

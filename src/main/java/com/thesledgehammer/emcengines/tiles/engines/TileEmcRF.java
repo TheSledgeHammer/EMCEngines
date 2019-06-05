@@ -2,18 +2,20 @@ package com.thesledgehammer.emcengines.tiles.engines;
 
 import com.thesledgehammer.emcengines.EmcManager;
 import com.thesledgehammer.groovymc.energy.ForgeEnergyTile;
+import moze_intel.projecte.api.tile.IEmcAcceptor;
 import moze_intel.projecte.api.tile.IEmcProvider;
+import moze_intel.projecte.api.tile.IEmcStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
 import javax.annotation.Nonnull;
 
-public class TileEmcProviderRF extends ForgeEnergyTile implements IEmcProvider {
+public class TileEmcRF extends ForgeEnergyTile implements IEmcAcceptor, IEmcProvider, IEmcStorage {
 
     protected EmcManager emcManager;
 
-    public TileEmcProviderRF(String tileName, int capacity, int maxTransfer, long currentEMC, long maximumEMC) {
-        super(tileName, capacity, maxTransfer);
+    public TileEmcRF(String tileName, int feCapacity, int feTransfer, long currentEMC, long maximumEMC) {
+        super(tileName, feCapacity, feTransfer);
         emcManager = new EmcManager(maximumEMC, currentEMC);
     }
 
@@ -28,8 +30,17 @@ public class TileEmcProviderRF extends ForgeEnergyTile implements IEmcProvider {
     }
 
     @Override
+    public long acceptEMC(@Nonnull EnumFacing face, long toAccept) {
+        if (world.getTileEntity(pos.offset(face)) instanceof TileEmcRF) {
+            return 0;
+        } else {
+            return emcManager.acceptEMC(face, toAccept);
+        }
+    }
+
+    @Override
     public long provideEMC(@Nonnull EnumFacing face, long toProvide) {
-        if (world.getTileEntity(pos.offset(face)) instanceof TileEmcProviderRF) {
+        if (world.getTileEntity(pos.offset(face)) instanceof TileEmcRF) {
             return 0;
         } else {
             return emcManager.provideEMC(face, toProvide);

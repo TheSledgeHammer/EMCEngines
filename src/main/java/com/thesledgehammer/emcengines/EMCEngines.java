@@ -8,11 +8,13 @@
 
 package com.thesledgehammer.emcengines;
 
+import com.thesledgehammer.emcengines.compat.TOPCompat;
 import com.thesledgehammer.groovymc.api.GroovyLoader;
 import com.thesledgehammer.groovymc.config.Constants;
 import com.thesledgehammer.groovymc.utils.ObjectManager;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -49,7 +51,9 @@ public class EMCEngines {
 		logger = event.getModLog();
 		//proxy.preInit(event);
 		ModBlocks.init();
-
+		if(Loader.isModLoaded("theoneprobe")) {
+			TOPCompat.register();
+		}
 	}
 
 	@Mod.EventHandler

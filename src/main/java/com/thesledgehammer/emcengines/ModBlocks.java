@@ -28,6 +28,8 @@ public class ModBlocks {
     public static BlockEngine emcEngineMK3x64;
     public static BlockPipe rfPipe;
 
+    public static BlockEngine emcEngineMJ;
+
     public static void init() {
 
         emcEngineMK1 = new BlockEngine(EnumEngineType.EMC_ENGINE_MK1);
@@ -65,6 +67,10 @@ public class ModBlocks {
         emcEngineMK3x64 = new BlockEngine(EnumEngineType.EMC_ENGINE_MK3_x64);
         registerBlock(emcEngineMK3x64, new GroovyItemBlock<>(emcEngineMK3x64), "emc_engine_mk3x64");
         emcEngineMK3x64.registerAdvancedTileEntity();
+
+        emcEngineMJ = new BlockEngine(EnumEngineType.EMC_ENGINE_MJ);
+        registerBlock(emcEngineMJ, new GroovyItemBlock<>(emcEngineMJ), "emc_engine_mj");
+        emcEngineMJ.registerAdvancedTileEntity();
     }
 
     @SideOnly(Side.CLIENT)

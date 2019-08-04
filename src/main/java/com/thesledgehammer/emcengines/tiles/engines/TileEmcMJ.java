@@ -1,23 +1,31 @@
 package com.thesledgehammer.emcengines.tiles.engines;
 
 import com.thesledgehammer.emcengines.EmcManager;
-import com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft.MinecraftJoulesTile;
+import com.thesledgehammer.groovymc.integration.minecraftjoules.MinecraftJoulesTile;
 import moze_intel.projecte.api.tile.IEmcAcceptor;
 import moze_intel.projecte.api.tile.IEmcProvider;
 import moze_intel.projecte.api.tile.IEmcStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
-
 import javax.annotation.Nonnull;
 
-public class TileEmcMJ extends MinecraftJoulesTile implements IEmcAcceptor, IEmcProvider, IEmcStorage {
+public abstract class TileEmcMJ extends MinecraftJoulesTile implements IEmcAcceptor, IEmcProvider, IEmcStorage {
 
-    protected EmcManager emcManager;
+    protected final EmcManager emcManager;
 
-    public TileEmcMJ(String tileName, long mjCapacity, long mjTransfer, long currentEMC, long maximumEMC) {
-        super(tileName, mjCapacity, mjTransfer);
-        emcManager = new EmcManager(maximumEMC, currentEMC);
+    public TileEmcMJ(String tileName, long mjCapacity, long mjTransfer, long maximumEmc, long emcCharge) {
+        super(mjCapacity, mjTransfer);
+        this.emcManager = new EmcManager(maximumEmc, emcCharge);
+    }
+
+    public long getEmcMaxExtract() {
+        return emcManager.getMaxExtract();
+    }
+
+
+    public long getEmcMaxReceive() {
+        return emcManager.getMaxReceive();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.thesledgehammer.emcengines.tiles.engines;
 
-import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj;
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage;
+import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools;
 import moze_intel.projecte.api.tile.IEmcProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -9,8 +11,8 @@ import net.minecraft.util.ITickable;
 
 public class TileEmcEngineMJBase extends TileEmcMJ implements ITickable {
 
-    public TileEmcEngineMJBase(String tileName, long mjCapacity, long mjTransfer, long currentEMC, long maximumEMC) {
-        super(tileName, mjCapacity, mjTransfer, currentEMC, maximumEMC);
+    public TileEmcEngineMJBase(String tileName, long mjCapacity, long mjTransfer, long maximumEmc, long emcCharge) {
+        super(tileName, mjCapacity, mjTransfer, maximumEmc, emcCharge);
     }
 
     @Override
@@ -20,6 +22,9 @@ public class TileEmcEngineMJBase extends TileEmcMJ implements ITickable {
             return;
         }
 
+        long emcExtract = Math.min(getStoredEmc(), getEmcMaxExtract());
+        long mjOut = emcExtract * MjTools.getMJ();
+
         for(EnumFacing facing : EnumFacing.VALUES) {
             TileEntity tile = world.getTileEntity(pos.offset(facing));
             TileEntity other = world.getTileEntity(pos.offset(facing));
@@ -28,24 +33,16 @@ public class TileEmcEngineMJBase extends TileEmcMJ implements ITickable {
             } else if(tile instanceof IEmcProvider) {
                 IEmcProvider emcTile = (IEmcProvider) tile;
                 if(emcTile.getStoredEmc() > 0) {
-                    emcTile.provideEMC(facing, Math.min(getMaximumEmc(), getStoredEmc()));
-                    long stored =+ emcTile.provideEMC(facing, Math.min(getMaximumEmc(), getStoredEmc()));
-                    acceptEMC(facing, stored);
-                    receivePower(mj.getMaxReceive(), false);
-                    emcManager.modifyEmcStored(acceptEMC(facing, stored));
+                    //emcTile.provideEMC(facing, emcManager.getMaxExtract());
+                    //long stored =+ emcTile.provideEMC(facing, Math.min(getMaximumEmc(), getStoredEmc()));
+                    emcManager.drainEMC(emcTile.provideEMC(facing, emcExtract));
+                    mj.generatePower(mjOut);
                 }
-            } else if(other.hasCapability(MjAPI.CAP_RECEIVER, facing)) {
-                IMjReceiver energyTile = other.getCapability(MjAPI.CAP_RECEIVER, facing);
-                long toExtract = Math.min(mj.getMaxExtract(), getCapacity() - getStored());
+            } else if(other.hasCapability(CapabilityMj.getMJ_STORAGE(), facing) || other.hasCapability(MjAPI.CAP_CONNECTOR, facing)) {
+                IMjStorage energyTile = other.getCapability(CapabilityMj.getMJ_STORAGE(), facing);
                 if(energyTile != null) {
-                    energyTile.receivePower(toExtract, false);
+                    mj.drainPower(energyTile.receivePower(mjOut, false));
                 }
-
-                if(mj.getStored() < mj.getCapacity()) {
-                    receivePower(Math.min(toExtract, mj.getMaxReceive()), false);
-                }
-                extractPower(0, toExtract, false);
-                mj.modifyPowerStored(extractPower(0, toExtract, false));
             }
         }
     }

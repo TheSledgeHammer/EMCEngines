@@ -39,7 +39,7 @@ public class EMCEngines {
 	//@SidedProxy(clientSide = "com.thesledgehammer.retrobees.proxy.ClientProxy", serverSide = "com.thesledgehammer.retrobees.proxy.CommonProxy")
 	//public static CommonProxy proxy;
 
-	private GroovyLoader groovyLoader = new GroovyLoader(Constants.getJAVA_JVM(), Constants.getURL(), MOD_ID);
+	protected static GroovyLoader groovyLoader = new GroovyLoader(Constants.getMOD_PATH(), Constants.getRESOURCE_PATH(), "java", Constants.getURL(), MOD_ID);
 
 	@Mod.Instance("emcengines")
 	public static  EMCEngines instance;
@@ -52,14 +52,14 @@ public class EMCEngines {
 		//proxy.preInit(event);
 		ModBlocks.init();
 		if(Loader.isModLoaded("theoneprobe")) {
-			TOPCompat.register();
+			TOPCompat.registerProviders();
 		}
+		//EngineModels.fmlPreInit();
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		//proxy.init(event);
-
 	}
 
 	@Mod.EventHandler
@@ -71,7 +71,6 @@ public class EMCEngines {
 	public static void registerItem(Item item) {
 		ObjectManager.registerItemClient(item);
 	}
-
 
 	public static void registerBlock(Block block) {
 		ObjectManager.registerBlockClient(block);

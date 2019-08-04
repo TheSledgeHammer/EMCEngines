@@ -1,7 +1,7 @@
 package com.thesledgehammer.emcengines.tiles.engines;
 
 import com.thesledgehammer.emcengines.EmcManager;
-import com.thesledgehammer.groovymc.energy.ForgeEnergyTile;
+import com.thesledgehammer.groovymc.integration.forgeenergy.ForgeEnergyTile;
 import moze_intel.projecte.api.tile.IEmcAcceptor;
 import moze_intel.projecte.api.tile.IEmcProvider;
 import moze_intel.projecte.api.tile.IEmcStorage;
@@ -15,7 +15,7 @@ public class TileEmcRF extends ForgeEnergyTile implements IEmcAcceptor, IEmcProv
     protected EmcManager emcManager;
 
     public TileEmcRF(String tileName, int feCapacity, int feTransfer, long currentEMC, long maximumEMC) {
-        super(tileName, feCapacity, feTransfer);
+        super(feCapacity, feTransfer);
         emcManager = new EmcManager(maximumEMC, currentEMC);
     }
 

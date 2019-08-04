@@ -9,33 +9,23 @@ import javax.annotation.Nonnull;
 
 public class EmcManager implements IEmcAcceptor, IEmcProvider, IEmcStorage {
 
-    protected long currentEMC;
-    private long capacity;
+    private long currentEMC;
     private long maxReceive;
     private long maxExtract;
     private long maximumEMC;
 
-    public EmcManager(long capacity) {
-        setMaxCapacity(capacity);
-        setMaximumEMC(Long.MAX_VALUE);
+    public EmcManager(long maxTransfer) {
+        this(Long.MAX_VALUE, maxTransfer, maxTransfer);
     }
 
-    public EmcManager(long capacity, long maxTransfer) {
-        setMaxCapacity(capacity);
-        setMaxReceive(maxTransfer);
-        setMaxExtract(maxTransfer);
-        setMaximumEMC(Long.MAX_VALUE);
+    public EmcManager(long maximumEMC, long maxTransfer) {
+        this(maximumEMC, maxTransfer, maxTransfer);
     }
 
-    public EmcManager(long capacity, long maxReceive, long maxExtract) {
-        setMaxCapacity(capacity);
+    public EmcManager(long maximumEMC, long maxReceive, long maxExtract) {
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
-        setMaximumEMC(Long.MAX_VALUE);
-    }
-
-    public void setMaxCapacity(long capacity) {
-        this.capacity = capacity;
+        setMaximumEMC(maximumEMC);
     }
 
     public void setMaxReceive(long maxReceive) {
@@ -53,10 +43,6 @@ public class EmcManager implements IEmcAcceptor, IEmcProvider, IEmcStorage {
         }
     }
 
-    public long getCapacity() {
-        return capacity;
-    }
-
     public long getMaxReceive() {
         return maxReceive;
     }
@@ -65,13 +51,31 @@ public class EmcManager implements IEmcAcceptor, IEmcProvider, IEmcStorage {
         return maxExtract;
     }
 
-    public void modifyEmcStored(long currentEMC) {
+    public void drainEMC(long amount) {
+        modifyEmcStored(currentEMC - amount);
+    }
+
+    public void generateEMC(long amount) {
+        modifyEmcStored(currentEMC + amount);
+    }
+
+    private void modifyEmcStored(long currentEMC) {
         this.currentEMC = currentEMC;
-        if(currentEMC > this.capacity) {
-            this.currentEMC = this.capacity;
+        if(currentEMC > this.maximumEMC) {
+            this.currentEMC = this.maximumEMC;
         } else if(this.currentEMC < 0) {
             this.currentEMC = 0;
         }
+    }
+
+    @Override
+    public long getStoredEmc() {
+        return currentEMC;
+    }
+
+    @Override
+    public long getMaximumEmc() {
+        return maximumEMC;
     }
 
     @Override
@@ -86,19 +90,5 @@ public class EmcManager implements IEmcAcceptor, IEmcProvider, IEmcStorage {
         long toRemove = Math.min(currentEMC, toExtract);
         currentEMC -= toRemove;
         return toRemove;
-    }
-
-    @Override
-    public long getStoredEmc() {
-        return currentEMC;
-    }
-
-    @Override
-    public long getMaximumEmc() {
-        return maximumEMC;
-    }
-
-    public long getMaxStoredEmc() {
-        return capacity;
     }
 }

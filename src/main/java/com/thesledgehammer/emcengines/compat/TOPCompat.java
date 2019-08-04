@@ -1,33 +1,15 @@
 package com.thesledgehammer.emcengines.compat;
 
-import com.google.common.base.Function;
-import com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe.ITheOneProbeInfoProvider;
 import mcjty.theoneprobe.TheOneProbe;
-import mcjty.theoneprobe.api.*;
-import mcjty.theoneprobe.apiimpl.TheOneProbeImp;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
+import mcjty.theoneprobe.api.ITheOneProbe;
 
 public class TOPCompat {
 
-    private static boolean registered;
-
-    public static void register() {
-        if(registered) {
-            return;
-        }
-        registered = true;
-        registerProviders();
+    public static void registerProviders() {
+        ITheOneProbe oneProbe = TheOneProbe.theOneProbeImp;
+        oneProbe.registerProvider(new EMCProbeInfoProvider());
     }
-
-    private static void registerProviders() {
-        TheOneProbeImp.registerElements();
-        TheOneProbe.theOneProbeImp.registerProvider(new EMCProbeInfoProvider());
-    }
-
+/*
     public static class GetTheOneProbe implements Function<ITheOneProbe, Void> {
 
         public static ITheOneProbe probe;
@@ -36,21 +18,24 @@ public class TOPCompat {
         @Override
         public Void apply(@Nullable ITheOneProbe theOneProbe) {
             probe = theOneProbe;
+            registerProviders();
+            probe.registerProvider(new EMCProbeInfoProvider());
             probe.registerProvider(new IProbeInfoProvider() {
+
                 @Override
                 public String getID() {
-                    return "enginesemc:oneprobe";
+                    return "emcengines:default";
                 }
 
                 @Override
                 public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-                    if (blockState.getBlock() instanceof ITheOneProbeInfoProvider) {
-                        ITheOneProbeInfoProvider provider = (ITheOneProbeInfoProvider) blockState.getBlock();
+                    if (blockState.getBlock() instanceof IProbeInfoProvider) {
+                        TopInfoProvider provider = (TopInfoProvider) blockState.getBlock();
                         provider.addProbeInfo(mode, probeInfo, player, world, blockState, data);
                     }
                 }
             });
             return null;
         }
-    }
+    }*/
 }

@@ -58,7 +58,7 @@ dependencies {
 		compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
 		compile files("/lib/ProjectE-1.12.2-PE1.4.1.jar")
 		compile files("/lib/Groovy-Data-Structure-Algorithms.jar")
-		compile "mcjty.theoneprobe:TheOneProbe-1.12:+"
+		compile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
 
 		compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"
 		compile files("/lib/GroovyMC_1.12.2-1.1.0-universal.jar")

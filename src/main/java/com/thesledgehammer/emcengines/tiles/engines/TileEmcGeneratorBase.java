@@ -30,9 +30,9 @@ public class TileEmcGeneratorBase extends TileEmcRF implements ITickable {
                 if(emcTile.getStoredEmc() < emcTile.getMaximumEmc()) {
                     emcTile.acceptEMC(facing, Math.min(getMaximumEmc(), emcManager.getMaxReceive()));
                     store += emcTile.acceptEMC(facing, Math.min(getMaximumEmc(), emcManager.getMaxReceive()));
-                    provideEMC(facing, store);
-                    extractEnergy(fe.getMaxExtract(), false);
-                    emcManager.modifyEmcStored(provideEMC(facing, store));
+                   // provideEMC(facing, store);
+                    //extractEnergy(fe.getMaxExtract(), false);
+                    emcManager.drainEMC(provideEMC(facing, store));
                 }
             }
         }

@@ -9,16 +9,17 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileEmcEngineRFBase extends TileEmcRF implements ITickable {
 
-    public TileEmcEngineRFBase(String tileName, int feCapacity, int feTransfer, long emcMax, long emcCurrent) {
-       super(tileName, feCapacity, feTransfer, emcMax, emcCurrent);
+    public TileEmcEngineRFBase(String tileName, int feCapacity, int feTransfer, long maximumEMC, long emcCurrent) {
+       super(tileName, feCapacity, feTransfer, maximumEMC, emcCurrent);
     }
 
     @Override
     public void update() {
-
         if(world.isRemote) {
             return;
         }
+
+        int toExtract = Math.min(fe.getMaxExtract(), getMaxEnergyStored() - getEnergyStored());
 
         for(EnumFacing facing : EnumFacing.VALUES) {
             TileEntity tile = world.getTileEntity(pos.offset(facing));
@@ -30,22 +31,14 @@ public class TileEmcEngineRFBase extends TileEmcRF implements ITickable {
                 if(emcTile.getStoredEmc() > 0) {
                     emcTile.provideEMC(facing, Math.min(getMaximumEmc(), getStoredEmc()));
                     long stored =+ emcTile.provideEMC(facing, Math.min(getMaximumEmc(), getStoredEmc()));
-                    acceptEMC(facing, stored);
-                    receiveEnergy(fe.getMaxReceive(), false);
-                    emcManager.modifyEmcStored(acceptEMC(facing, stored));
+                    emcManager.drainEMC(acceptEMC(facing, stored));
+                    fe.generateEnergy(toExtract);
                 }
             } else if(other.hasCapability(CapabilityEnergy.ENERGY, facing)) {
                 IEnergyStorage energyTile = other.getCapability(CapabilityEnergy.ENERGY, facing);
-                int toExtract = Math.min(fe.getMaxExtract(), getMaxEnergyStored() - getEnergyStored());
-
-                if (energyTile != null) {
-                    energyTile.receiveEnergy(toExtract, false);
+                if (energyTile != null && getEnergyStored() > 0) {
+                    fe.drainEnergy(energyTile.receiveEnergy(toExtract, false));
                 }
-                if(fe.getEnergyStored() < fe.getCapacity()) {
-                    receiveEnergy(Math.min(toExtract, fe.getMaxReceive()), false);
-                }
-                extractEnergy(toExtract, false);
-                fe.modifyEnergyStored(extractEnergy(toExtract, false));
             }
         }
     }

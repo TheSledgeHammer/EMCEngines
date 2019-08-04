@@ -1,7 +1,0 @@
-{
-    "textures": {
-        "#back":"emcengines:blocks/back",
-        "#side":"emcengines:blocks/side"
-    },
-    "parent":"emcengines:models/block/engine_base"
-}

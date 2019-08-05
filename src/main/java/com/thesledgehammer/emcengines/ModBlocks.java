@@ -1,9 +1,7 @@
 package com.thesledgehammer.emcengines;
 
 import com.thesledgehammer.emcengines.blocks.*;
-import com.thesledgehammer.emcengines.items.FEItem;
 import com.thesledgehammer.emcengines.tiles.pipes.TilePipeFE;
-import com.thesledgehammer.emcengines.tiles.pipes.TilePipeMJ;
 import com.thesledgehammer.groovymc.items.GroovyItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -31,7 +29,14 @@ public class ModBlocks {
     public static BlockEngine emcEngineMJ;
 
     public static BlockPipeFE fePipe;
-    public static BlockPipeMJ mjPipe;
+    public static BlockPipeMJ lvPipe;
+    public static BlockPipeMJ mvPipe;
+    public static BlockPipeMJ hvPipe;
+    public static BlockPipeMJ uvPipe;
+    public static BlockPipeMJ svPipe;
+    public static BlockPipeMJ evPipe;
+    public static BlockPipeMJ ivPipe;
+    public static BlockPipeMJ infinivPipe;
 
     public static BlockConverter feLvConverter;
     public static BlockConverter feMvConverter;
@@ -92,9 +97,37 @@ public class ModBlocks {
         registerBlock(fePipe, new GroovyItemBlock<>(fePipe), "fe_pipe");
         fePipe.registerTileEntity(TilePipeFE.class, "fe_pipe");
 
-        mjPipe = new BlockPipeMJ();
-        registerBlock(mjPipe, new GroovyItemBlock<>(mjPipe), "mj_pipe");
-        mjPipe.registerTileEntity(TilePipeMJ.class, "mj_pipe");
+        lvPipe = new BlockPipeMJ(EnumPipeType.LV_PIPE);
+        registerBlock(lvPipe, new GroovyItemBlock<>(lvPipe), "lv_pipe");
+        lvPipe.registerAdvancedTileEntity();
+
+        mvPipe = new BlockPipeMJ(EnumPipeType.MV_PIPE);
+        registerBlock(mvPipe, new GroovyItemBlock<>(mvPipe), "mv_pipe");
+        mvPipe.registerAdvancedTileEntity();
+
+        hvPipe = new BlockPipeMJ(EnumPipeType.HV_PIPE);
+        registerBlock(hvPipe, new GroovyItemBlock<>(hvPipe), "hv_pipe");
+        hvPipe.registerAdvancedTileEntity();
+
+        uvPipe = new BlockPipeMJ(EnumPipeType.UV_PIPE);
+        registerBlock(uvPipe, new GroovyItemBlock<>(uvPipe), "uv_pipe");
+        uvPipe.registerAdvancedTileEntity();
+
+        svPipe = new BlockPipeMJ(EnumPipeType.SV_PIPE);
+        registerBlock(svPipe, new GroovyItemBlock<>(svPipe), "sv_pipe");
+        svPipe.registerAdvancedTileEntity();
+
+        evPipe = new BlockPipeMJ(EnumPipeType.EV_PIPE);
+        registerBlock(evPipe, new GroovyItemBlock<>(evPipe), "ev_pipe");
+        evPipe.registerAdvancedTileEntity();
+
+        ivPipe = new BlockPipeMJ(EnumPipeType.IV_PIPE);
+        registerBlock(ivPipe, new GroovyItemBlock<>(ivPipe), "iv_pipe");
+        ivPipe.registerAdvancedTileEntity();
+
+        infinivPipe = new BlockPipeMJ(EnumPipeType.INFINIV_PIPE);
+        registerBlock(infinivPipe, new GroovyItemBlock<>(infinivPipe), "infiniv_pipe");
+        infinivPipe.registerAdvancedTileEntity();
     }
 
     private static void initConverters() {
@@ -135,6 +168,7 @@ public class ModBlocks {
     public static void initModels() {
        // emcEngineMK1.initModel();
     }
+
     private static <T extends Item> T registerItem(T item, String name) {
         item.setUnlocalizedName(name);
         item.setRegistryName(name);

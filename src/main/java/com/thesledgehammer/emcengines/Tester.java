@@ -20,10 +20,8 @@ public class Tester {
         long mjOut = (EMC_MAX_TRANSFER / EMC_FACTOR) * 64;
         long emcExtract = Math.min(EM.getMaxExtract(), 2000);
         EM.generateEMC(emcExtract);
-
-        ForgeEnergy fe = new ForgeEnergy((int) EnumVoltage.INSANE.getVoltage() * 3, (int) EnumVoltage.INSANE.getVoltage());
-        generateEnergy(fe, fe.getMaxExtract(), EnumVoltage.INSANE);
-
+        System.out.println(Long.MAX_VALUE);
+        System.out.println(Integer.MAX_VALUE);
     }
 
     static void generateEnergy(ForgeEnergy fe, int amount, EnumVoltage voltage) {
@@ -35,10 +33,6 @@ public class Tester {
         int maxGenerate =+ Math.max(generate, amount);
         System.out.println(maxGenerate);
 
-    }
-
-    public static long EMC_TO_MJ(long emcValue, int multiplier) {
-        return ((emcValue / Constants.EMC_FACTOR) * multiplier) * MjAPI.MJ;
     }
 
 

@@ -23,6 +23,7 @@
 /saves
 /out
 /ClientRuntime
+/src/api
 usernamecache.json
 usercache.json
 options.txt

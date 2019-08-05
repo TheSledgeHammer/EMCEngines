@@ -12,10 +12,9 @@ public class Constants {
     //Relay Tier Max = 10 (mk1 ->  mk2 -> mk3)
 
     public static final long CURRENT_EMC_BASE_TRANSFER = 1024;
-    public static final long MAX_EMC_BASE_CAPACITY = 1000000;
+    public static final long MAX_EMC_BASE_CAPACITY = 1_000_000;
 
-
-    public static long EMC_ENGINE_MK1_EMC_MAX = 1000000;
+    public static long EMC_ENGINE_MK1_EMC_MAX = 1_000_000;
     public static long EMC_ENGINE_MK1_EMC_INPUT = 1024;
 
     public static int EMC_ENGINE_MK1_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK1_EMC_MAX, 1);
@@ -27,7 +26,7 @@ public class Constants {
     public static int EMC_ENGINE_MK1_x64_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK1_EMC_MAX, 64);
     public static int EMC_ENGINE_MK1_x64_RF_TRANSFER = EMC_TO_RF(EMC_ENGINE_MK1_EMC_INPUT, 64);
 
-    public static long EMC_ENGINE_MK2_EMC_MAX = 10000000;
+    public static long EMC_ENGINE_MK2_EMC_MAX = 10_000_000;
     public static long EMC_ENGINE_MK2_EMC_INPUT = 3072;
     public static int EMC_ENGINE_MK2_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK2_EMC_MAX, 1);
     public static int EMC_ENGINE_MK2_RF_TRANSFER = EMC_TO_RF(EMC_ENGINE_MK2_EMC_INPUT, 1);
@@ -36,8 +35,8 @@ public class Constants {
     public static int EMC_ENGINE_MK2_x64_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK2_EMC_MAX, 64);
     public static int EMC_ENGINE_MK2_x64_RF_TRANSFER = EMC_TO_RF(EMC_ENGINE_MK2_EMC_INPUT, 64);
 
-    public static long EMC_ENGINE_MK3_EMC_MAX = 10000000;
-    public static long EMC_ENGINE_MK3_EMC_INPUT = 10240;
+    public static long EMC_ENGINE_MK3_EMC_MAX = 100_000_000;
+    public static long EMC_ENGINE_MK3_EMC_INPUT = 10_240;
     public static int EMC_ENGINE_MK3_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK3_EMC_MAX, 1);
     public static int EMC_ENGINE_MK3_RF_TRANSFER = EMC_TO_RF(EMC_ENGINE_MK3_EMC_INPUT, 1);
     public static int EMC_ENGINE_MK3_x8_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK3_EMC_MAX, 8);
@@ -45,8 +44,8 @@ public class Constants {
     public static int EMC_ENGINE_MK3_x64_RF_CAPACITY = EMC_TO_RF(EMC_ENGINE_MK3_EMC_MAX, 64);
     public static int EMC_ENGINE_MK3_x64_RF_TRANSFER = EMC_TO_RF(EMC_ENGINE_MK3_EMC_INPUT, 64);
 
-    public static long EMC_ENGINE_MJ_EMC_MAX = 1000000;
-    public static long EMC_ENGINE_MJ_EMC_INPUT = 1024;
+    public static long EMC_ENGINE_MJ_EMC_MAX = 10_000_000;
+    public static long EMC_ENGINE_MJ_EMC_INPUT = 3072;
     public static long EMC_ENGINE_MJ_CAPACITY = EMC_TO_MJ(EMC_ENGINE_MJ_EMC_MAX, 64);
     public static long EMC_ENGINE_MJ_TRANSFER = EMC_TO_MJ(EMC_ENGINE_MJ_EMC_INPUT, 64);
 

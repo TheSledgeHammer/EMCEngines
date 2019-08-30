@@ -24,6 +24,7 @@
 /out
 /ClientRuntime
 /src/api
+engine_base.json
 usernamecache.json
 usercache.json
 options.txt

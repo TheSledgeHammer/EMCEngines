@@ -5,7 +5,7 @@ import com.thesledgehammer.groovymc.blocks.properties.GroovyMachineProperties;
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType;
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits;
 
-public enum EnumEngineType implements IBlockType {
+public enum EnumEmcEngineType implements IBlockType {
     EMC_ENGINE_MK1(createRfEngineProperties(TileEmcEngineMK1.class, "engine_mk1")),
     EMC_ENGINE_MK2(createRfEngineProperties(TileEmcEngineMK2.class, "engine_mk2")),
     EMC_ENGINE_MK3(createRfEngineProperties(TileEmcEngineMK3.class, "engine_mk3")),
@@ -22,7 +22,7 @@ public enum EnumEngineType implements IBlockType {
 
     private final MachinePropertyTraits<?> machinePropertyTraits;
 
-    EnumEngineType(MachinePropertyTraits machinePropertyTraits) {
+    EnumEmcEngineType(MachinePropertyTraits machinePropertyTraits) {
         this.machinePropertyTraits = machinePropertyTraits;
     }
 

@@ -55,6 +55,7 @@ public class EMCEngines {
 			TOPCompat.registerProviders();
 		}
 		//EngineModels.fmlPreInit();
+		ModBlocks.initModels();
 	}
 
 	@Mod.EventHandler

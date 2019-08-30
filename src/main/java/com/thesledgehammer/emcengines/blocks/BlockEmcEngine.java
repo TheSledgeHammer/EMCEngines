@@ -3,9 +3,9 @@ package com.thesledgehammer.emcengines.blocks;
 import com.thesledgehammer.groovymc.blocks.GroovyBlockTileAdvanced;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class BlockEngine extends GroovyBlockTileAdvanced<EnumEngineType> {
+public class BlockEmcEngine extends GroovyBlockTileAdvanced<EnumEmcEngineType> {
 
-    public BlockEngine(EnumEngineType blockType) {
+    public BlockEmcEngine(EnumEmcEngineType blockType) {
         super(blockType);
         setHarvestLevel("pickaxe", 0);
         setCreativeTab(CreativeTabs.MISC);

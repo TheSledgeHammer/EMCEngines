@@ -1,7 +1,7 @@
 package com.thesledgehammer.emcengines.tiles.engines;
 
 import com.thesledgehammer.emcengines.EmcManager;
-import com.thesledgehammer.groovymc.integration.minecraftjoules.MinecraftJoulesTile;
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJoulesTile;
 import moze_intel.projecte.api.tile.IEmcAcceptor;
 import moze_intel.projecte.api.tile.IEmcProvider;
 import moze_intel.projecte.api.tile.IEmcStorage;

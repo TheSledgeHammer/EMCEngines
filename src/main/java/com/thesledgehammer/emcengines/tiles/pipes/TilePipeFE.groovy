@@ -1,6 +1,7 @@
 package com.thesledgehammer.emcengines.tiles.pipes
 
-import com.thesledgehammer.groovymc.integration.forgeenergy.ForgeEnergyTile
+import com.thesledgehammer.emcengines.blocks.FEPipeType
+import com.thesledgehammer.groovymc.compat.forgeenergy.ForgeEnergyTile
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
@@ -9,11 +10,8 @@ import net.minecraftforge.energy.IEnergyStorage
 
 class TilePipeFE extends ForgeEnergyTile implements ITickable {
 
-    private final int capacity = 5000;
-    private final int maxTransfer = 1024;
-
-    TilePipeFE() {
-        super(5120, 1024);
+    TilePipeFE(FEPipeType pipeType) {
+        super(pipeType.getCapacity(), pipeType.getMaxTransfer());
     }
 
     @Override

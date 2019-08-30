@@ -1,38 +1,49 @@
 package com.thesledgehammer.emcengines.blocks;
 
-import com.thesledgehammer.emcengines.tiles.pipes.*;
-import com.thesledgehammer.groovymc.blocks.properties.GroovyMachineProperties;
-import com.thesledgehammer.groovymc.blocks.properties.IBlockType;
-import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits;
+import com.thesledgehammer.emcengines.Constants;
+import com.thesledgehammer.groovymc.api.EnumVoltage;
+import net.minecraft.util.IStringSerializable;
 
-public enum EnumPipeType implements IBlockType {
-    LV_PIPE(createPipeProperties(TilePipeLV.class, "lv_pipe")),
-    MV_PIPE(createPipeProperties(TilePipeMV.class, "mv_pipe")),
-    HV_PIPE(createPipeProperties(TilePipeHV.class, "hv_pipe")),
-    UV_PIPE(createPipeProperties(TilePipeUV.class, "uv_pipe")),
-    SV_PIPE(createPipeProperties(TilePipeSV.class, "sv_pipe")),
-    EV_PIPE(createPipeProperties(TilePipeEV.class, "ev_pipe")),
-    IV_PIPE(createPipeProperties(TilePipeIV.class, "iv_pipe")),
-    INFINIV_PIPE(createPipeProperties(TilePipeInfiniV.class, "infiniv_pipe"));
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
-    private final MachinePropertyTraits<?> machinePropertyTraits;
+public enum EnumPipeType implements IStringSerializable {
 
-    EnumPipeType(MachinePropertyTraits machinePropertyTraits) {
-        this.machinePropertyTraits = machinePropertyTraits;
+    LV_PIPE(Constants.MJ_Voltage(EnumVoltage.LOW), Constants.MJ_Voltage(EnumVoltage.LOW)),
+    MV_PIPE(Constants.MJ_Voltage(EnumVoltage.MEDIUM), Constants.MJ_Voltage(EnumVoltage.MEDIUM)),
+    HV_PIPE(Constants.MJ_Voltage(EnumVoltage.HIGH), Constants.MJ_Voltage(EnumVoltage.HIGH)),
+    UV_PIPE(Constants.MJ_Voltage(EnumVoltage.ULTRA), Constants.MJ_Voltage(EnumVoltage.ULTRA)),
+    SV_PIPE(Constants.MJ_Voltage(EnumVoltage.SUPER), Constants.MJ_Voltage(EnumVoltage.SUPER)),
+    EV_PIPE(Constants.MJ_Voltage(EnumVoltage.EXTREME), Constants.MJ_Voltage(EnumVoltage.EXTREME)),
+    IV_PIPE(Constants.MJ_Voltage(EnumVoltage.INSANE), Constants.MJ_Voltage(EnumVoltage.INSANE)),
+    INFINIV_PIPE(Constants.MJ_Voltage(EnumVoltage.INFINITE), Constants.MJ_Voltage(EnumVoltage.INFINITE));
+
+    public static final EnumPipeType[] VALUES = values();
+    private final String name;
+    private final long capacity;
+    private final long maxTransfer;
+
+    EnumPipeType(long capacity, long maxTransfer) {
+        this.name = toString().toLowerCase(Locale.ENGLISH);
+        this.capacity = capacity;
+        this.maxTransfer = maxTransfer;
     }
 
-    protected static MachinePropertyTraits<?> createPipeProperties(Class<? extends TilePipeMJ> teClass, String name) {
-        MachinePropertyTraits<? extends TilePipeMJ> machinePropertiesPipe = new GroovyMachineProperties<>(teClass, name);
-        return machinePropertiesPipe;
+    public long getCapacity() {
+        return capacity;
+    }
+
+    public long getMaxTransfer() {
+        return maxTransfer;
     }
 
     @Override
-    public MachinePropertyTraits getGroovyMachineProperties() {
-        return machinePropertyTraits;
-    }
-
-    @Override
+    @Nonnull
     public String getName() {
-        return getGroovyMachineProperties().getName();
+        return name;
+    }
+
+    public int getMeta() {
+        return ordinal();
     }
 }

@@ -1,6 +1,6 @@
 package com.thesledgehammer.emcengines.blocks;
 
-import com.thesledgehammer.emcengines.tiles.TileRFConverter;
+import com.thesledgehammer.emcengines.tiles.TileRFInverter;
 import com.thesledgehammer.groovymc.api.EnumEnergyType;
 import com.thesledgehammer.groovymc.blocks.GroovyBlockTileMeta;
 import net.minecraft.block.material.Material;
@@ -13,13 +13,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 //TODO: Fix Name
-public class BlockConverter extends GroovyBlockTileMeta {
+public class BlockInverter extends GroovyBlockTileMeta {
 
     private static final PropertyEnum<EnumEnergyType> TIER = PropertyEnum.create("tier", EnumEnergyType.class);
 
-    public BlockConverter() {
+    public BlockInverter() {
         super(Material.IRON);
         setHarvestLevel("pickaxe", 0);
         setCreativeTab(CreativeTabs.MISC);
@@ -29,7 +28,7 @@ public class BlockConverter extends GroovyBlockTileMeta {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileRFConverter(EnumEnergyType.values()[meta]);
+        return new TileRFInverter(EnumEnergyType.values()[meta]);
     }
 
     @Override
@@ -39,6 +38,7 @@ public class BlockConverter extends GroovyBlockTileMeta {
 
     @Nonnull
     @Override
+    @SuppressWarnings("deprecated")
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(TIER, EnumEnergyType.values()[meta]);
     }

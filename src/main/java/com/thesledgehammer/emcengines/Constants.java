@@ -1,7 +1,7 @@
 package com.thesledgehammer.emcengines;
 
 import buildcraft.api.mj.MjAPI;
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage;
+import com.thesledgehammer.groovymc.api.EnumVoltage;
 import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools;
 
 public class Constants {
@@ -66,10 +66,11 @@ public class Constants {
         return ((emcValue * EMC_FACTOR) * multiplier) * MjAPI.MJ;
     }
 
-    public static int MJ_TO_RF(long mjToRf) {
-        return (int) (mjToRf / MjAPI.MJ);
+    public static long toMJ(long amount) {
+        return amount * MjTools.getMJ();
     }
 
+    //To Remove
     public static long MJ_Voltage(EnumVoltage voltage) {
         return voltage.getVoltage() * MjTools.getMJ();
     }

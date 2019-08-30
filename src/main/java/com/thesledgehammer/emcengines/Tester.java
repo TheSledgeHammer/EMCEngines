@@ -1,40 +1,12 @@
 package com.thesledgehammer.emcengines;
 
 import buildcraft.api.mj.MjAPI;
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage;
-import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools;
-import com.thesledgehammer.groovymc.integration.forgeenergy.ForgeEnergy;
 
 public class Tester {
 
     public static void main(String[] args) {
-        long base = MjTools.formatMj(Constants.EMC_TO_MJ(1024, 1));
-       // System.out.println(base);
-        //System.out.println(Constants.EMC_ENGINE_MJ_TRANSFER);
-        long EMC_FACTOR = 16;
-        long EMC_MAX_TRANSFER = 1024;
-        long EMC_MAX_CAPACITY = 1000000;
-
-
-        EmcManager EM = new EmcManager(10000000, 1024);
-        long mjOut = (EMC_MAX_TRANSFER / EMC_FACTOR) * 64;
-        long emcExtract = Math.min(EM.getMaxExtract(), 2000);
-        EM.generateEMC(emcExtract);
-        System.out.println(Long.MAX_VALUE);
-        System.out.println(Integer.MAX_VALUE);
-    }
-
-    static void generateEnergy(ForgeEnergy fe, int amount, EnumVoltage voltage) {
-        int volts = (int) voltage.getVoltage() * 32;
-        if(amount >= volts) {
-            amount = volts;
-        }
-        int generate = Math.min(fe.getEnergyStored(), volts);
-        int maxGenerate =+ Math.max(generate, amount);
-        System.out.println(maxGenerate);
 
     }
-
 
     public static void MjEngine() {
         long MAX_OUTPUT = MjAPI.MJ;

@@ -1,12 +1,12 @@
 package com.thesledgehammer.emcengines.tiles;
 
-import com.thesledgehammer.groovymc.api.EnumEnergyType;
+import com.thesledgehammer.groovymc.api.EnumVoltage;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
 public class TileRFInverter extends TileRfMj {
 
-    public TileRFInverter(EnumEnergyType energyType) {
+    public TileRFInverter(EnumVoltage energyType) {
         super(energyType, 3);
     }
 

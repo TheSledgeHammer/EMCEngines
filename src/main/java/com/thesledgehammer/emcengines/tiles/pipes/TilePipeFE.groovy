@@ -29,12 +29,16 @@ class TilePipeFE extends ForgeEnergyTile implements ITickable {
                     IEnergyStorage extractFe = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
                     if(extractFe != null && extractFe.getEnergyStored() > 0) {
                         int toReceive = extractFe.extractEnergy(fe.getMaxReceive(), true);
-                        fe.generateEnergy(receiveEnergy(toReceive, false));
+                        if(toReceive > 0) {
+                            fe.generateEnergy(receiveEnergy(toReceive, false));
+                        }
                     }
                     IEnergyStorage insertFe = tile.getCapability(CapabilityEnergy.ENERGY, facing);
                     if(insertFe != null && getEnergyStored() > 0) {
                         int toExtract = extractEnergy(fe.getMaxExtract(), true);
-                        fe.drainEnergy(insertFe.receiveEnergy(toExtract, false));
+                        if(toExtract > 0) {
+                            fe.drainEnergy(insertFe.receiveEnergy(toExtract, false));
+                        }
                     }
                 }
             }

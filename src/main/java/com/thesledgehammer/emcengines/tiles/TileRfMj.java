@@ -1,6 +1,7 @@
 package com.thesledgehammer.emcengines.tiles;
 
-import com.thesledgehammer.groovymc.api.EnumEnergyType;
+import com.thesledgehammer.groovymc.api.EnergyConfig;
+import com.thesledgehammer.groovymc.api.EnumVoltage;
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj;
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage;
 import com.thesledgehammer.groovymc.compat.forgeenergy.ForgeEnergy;
@@ -19,21 +20,23 @@ import javax.annotation.Nullable;
 
 public abstract class TileRfMj extends GroovyTileBasic implements ITickable, IMjStorage, IEnergyStorage {
 
-    protected final MinecraftJoules mj;
-    protected final ForgeEnergy fe;
+    private final MinecraftJoules mj;
+    private final ForgeEnergy fe;
 
-    public TileRfMj(EnumEnergyType energyType, int capacityMultiplier) {
-        energyType.setCapacityMultiplier(capacityMultiplier);
-        this.mj = new MinecraftJoules(energyType.getMJ().getCapacity() * energyType.getCapacityMultiplier(), energyType.getMJ().getMaxExtract());
-        this.fe = new ForgeEnergy((int) energyType.getRF().getCapacity() * energyType.getCapacityMultiplier(), (int) energyType.getRF().getMaxExtract());
+    public TileRfMj(EnumVoltage voltage, int capacityMultiplier) {
+        int RF_LIMIT = 32;
+        EnergyConfig MJ = EnergyConfig.createMJConfig((voltage.getVoltage() * capacityMultiplier), voltage.getVoltage(), voltage.getVoltage());
+        EnergyConfig RF = EnergyConfig.createRFConfig((int) (voltage.getVoltage() * 100 * capacityMultiplier), (int) (voltage.getVoltage() * RF_LIMIT), (int) (voltage.getVoltage() * RF_LIMIT));
+
+        this.mj = new MinecraftJoules(MJ.getCapacity(), MJ.getMaxReceive(), MJ.getMaxExtract());
+        this.fe = new ForgeEnergy((int) RF.getCapacity(), (int) RF.getMaxReceive(), (int) RF.getMaxExtract());
     }
 
-    public void convert(EnumFacing facing, TileEntity tile) {
+    protected void convert(EnumFacing facing, TileEntity tile) {
         if (tile.hasCapability(CapabilityEnergy.ENERGY, facing) || tile.hasCapability(CapabilityMj.getMJ_STORAGE(), facing)) {
             IMjStorage extractMJ = tile.getCapability(CapabilityMj.getMJ_STORAGE(), facing.getOpposite());
             if(extractMJ != null && extractMJ.getStored() > 0) {
                 long toReceive = extractMJ.extractPower(0, fe.getMaxExtract(), true);
-                //TODO: make Mj transfer at max rate for Voltage Tier
                 fe.generateEnergy((int) toReceive);
                 mj.generatePower(mj.getMaxExtract());
             }
@@ -46,7 +49,7 @@ public abstract class TileRfMj extends GroovyTileBasic implements ITickable, IMj
         }
     }
 
-    public void invert(EnumFacing facing, TileEntity tile) {
+    protected void invert(EnumFacing facing, TileEntity tile) {
         if(tile.hasCapability(CapabilityEnergy.ENERGY, facing) || tile.hasCapability(CapabilityMj.getMJ_STORAGE(), facing)) {
 
             IEnergyStorage extractFE = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
@@ -63,22 +66,6 @@ public abstract class TileRfMj extends GroovyTileBasic implements ITickable, IMj
                 mj.drainPower(mj.getMaxExtract());
             }
         }
-    }
-
-    public long MaxRF(long amount) {
-        long volts = mj.getMaxExtract();
-        if(amount >= volts) {
-            amount = volts;
-        }
-        return amount;
-    }
-
-    public long MaxMJ(long amount, EnumEnergyType energyType) {
-        long volts = energyType.getMJ().getMaxExtract();
-        if(amount >= volts) {
-            amount = volts;
-        }
-        return amount;
     }
 
     @Override

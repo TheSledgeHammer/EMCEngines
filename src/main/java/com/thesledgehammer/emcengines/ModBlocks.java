@@ -112,7 +112,7 @@ public class ModBlocks {
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-        //mjPipe.initModel();
+        mjPipe.initModel();
     }
 
     private static <T extends Item> T registerItem(T item, String name) {

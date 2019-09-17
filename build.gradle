@@ -13,6 +13,7 @@ buildscript {
 }
 
 plugins {
+	id 'groovy'
 	id 'java'
 	id 'idea'
 	id 'maven'
@@ -25,6 +26,14 @@ sourceCompatibility = 1.8
 targetCompatibility= 1.8
 
 repositories {
+	maven {
+		name = "Apache Groovy"
+		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+	}
+	maven {
+		name = "JAXB"
+		url = "https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api"
+	}
 	maven {
 		name = "TheSledgeHammer"
 		url = "https://dl.bintray.com/thesledgehammer/development/"
@@ -54,13 +63,14 @@ group= "com.thesledgehammer.emcengines"
 archivesBaseName = "EMCEngines" + mcversion
 
 dependencies {
-		//compile "com.thesledgehammer.GroovyMC:GroovyMC_1.12.2:+:universal"
-		compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
-		compile files("/lib/ProjectE-1.12.2-PE1.4.1.jar")
-		compile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
-
-		compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"
-		compile files("/lib/GroovyMC_1.12.2-1.1.1-universal.jar")
+	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:${groovyforge_version}:universal"
+	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.12.2:${groovymc_version}:universal"
+	compile files("/lib/ProjectE-1.12.2-PE1.4.1.jar")
+	compile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
+	compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"
+	//compile "javax.xml.bind:jaxb-api:+"
+	//compile files("/lib/GroovyMC_1.12.2-1.1.1-universal.jar")
 }
 
 processResources {

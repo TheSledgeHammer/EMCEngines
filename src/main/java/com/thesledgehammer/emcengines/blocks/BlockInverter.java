@@ -38,7 +38,7 @@ public class BlockInverter extends GroovyBlockTileMeta {
 
     @Nonnull
     @Override
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(TIER, EnumVoltage.values()[meta]);
     }

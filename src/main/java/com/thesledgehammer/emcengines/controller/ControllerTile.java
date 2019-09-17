@@ -1,14 +1,15 @@
-package com.thesledgehammer.emcengines.tiles;
+package com.thesledgehammer.emcengines.controller;
 
-import com.thesledgehammer.groovymc.api.EnumVoltage;
+import com.thesledgehammer.groovymc.tiles.GroovyTileBasic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
-public class TileRFInverter extends TileRfMj implements ITickable {
+public class ControllerTile extends GroovyTileBasic implements ITickable {
 
-    public TileRFInverter(EnumVoltage energyType) {
-        super(energyType, 3);
+    private EnergyFlow pipeBlock;
+    ControllerTile(EnergyFlow pipeBlock) {
+        this.pipeBlock = pipeBlock;
     }
 
     @Override
@@ -19,10 +20,12 @@ public class TileRFInverter extends TileRfMj implements ITickable {
 
         for (EnumFacing facing : EnumFacing.VALUES) {
             TileEntity tile = world.getTileEntity(pos.offset(facing));
+
             if (tile == null) {
                 continue;
             } else if (tile != null) {
-                invert(facing, tile);
+                this.pipeBlock.transferFEOnTick(tile, facing);
+
             }
         }
     }

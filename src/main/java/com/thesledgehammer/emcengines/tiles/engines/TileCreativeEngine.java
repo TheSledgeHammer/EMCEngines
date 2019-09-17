@@ -2,15 +2,12 @@ package com.thesledgehammer.emcengines.tiles.engines;
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj;
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage;
-import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools;
 import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJoulesTile;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
 public class TileCreativeEngine extends MinecraftJoulesTile implements ITickable {
-
-    //private long baseOutput = 1000;
 
     public TileCreativeEngine() {
         super(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -29,14 +26,12 @@ public class TileCreativeEngine extends MinecraftJoulesTile implements ITickable
                 if(tile.hasCapability(CapabilityMj.getMJ_STORAGE(), facing)) {
                     IMjStorage mjTile = tile.getCapability(CapabilityMj.getMJ_STORAGE(), facing);
                     if(mjTile != null) {
-                        mj.drainPower(mjTile.receivePower(getBaseOutput(), false));
+                        if(canReceive()) {
+                            mj.drainPower(mjTile.receivePower(mj.getMaxReceive(), false));
+                        }
                     }
                 }
             }
         }
-    }
-
-    private long getBaseOutput() {
-        return 512 * MjTools.getMJ();
     }
 }

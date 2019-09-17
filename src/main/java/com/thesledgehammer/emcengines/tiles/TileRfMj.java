@@ -10,7 +10,6 @@ import com.thesledgehammer.groovymc.tiles.GroovyTileBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -18,7 +17,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class TileRfMj extends GroovyTileBasic implements ITickable, IMjStorage, IEnergyStorage {
+public class TileRfMj extends GroovyTileBasic implements IMjStorage, IEnergyStorage {
 
     private final MinecraftJoules mj;
     private final ForgeEnergy fe;

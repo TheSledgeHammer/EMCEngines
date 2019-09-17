@@ -23,12 +23,6 @@ public class EMCProbeInfoProvider implements IProbeInfoProvider {
         BlockPos pos = data.getPos();
         TileEntity te = world.getTileEntity(pos);
 
-        if(EMCTools.isMjEnergyHandler(te)) {
-            long energy = EMCTools.getMjStored(te);
-            long capacity = EMCTools.getMjCapacity(te);
-            addMJInfo(probeInfo, energy, capacity);
-        }
-
         if(EMCTools.isEmcEnergyHandler(te)) {
             long energy = EMCTools.getEmcStored(te);
             long capacity = EMCTools.getEmcCapacity(te);
@@ -45,17 +39,6 @@ public class EMCProbeInfoProvider implements IProbeInfoProvider {
                         .borderColor(new Color(0xff555555).getRGB())
                         .backgroundColor(new Color(0x000000).getRGB())
                         .numberFormat(NumberFormat.COMPACT)
-        );
-    }
-
-    private static void addMJInfo(IProbeInfo probeInfo, long energy, long capacity) {
-        probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
-                .suffix("MJ")
-                .filledColor(new Color(0x00CD66).getRGB())
-                .alternateFilledColor(new Color(0x009A33).getRGB())
-                .borderColor(new Color(0xff555555).getRGB())
-                .backgroundColor(new Color(0x000000).getRGB())
-                .numberFormat(NumberFormat.COMPACT)
         );
     }
 }

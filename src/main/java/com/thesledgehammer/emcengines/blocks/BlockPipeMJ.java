@@ -1,9 +1,9 @@
 package com.thesledgehammer.emcengines.blocks;
 
 import com.thesledgehammer.emcengines.tiles.pipes.TilePipeMJ;
+import com.thesledgehammer.groovymc.api.EnumVoltage;
 import com.thesledgehammer.groovymc.blocks.GroovyBlockTileMeta;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -23,40 +23,35 @@ import java.util.Objects;
 
 public class BlockPipeMJ extends GroovyBlockTileMeta {
 
-    public static final PropertyBool EAST = PropertyBool.create("east");
-    public static final PropertyBool WEST = PropertyBool.create("west");
-    public static final PropertyBool NORTH = PropertyBool.create("north");
-    public static final PropertyBool SOUTH = PropertyBool.create("south");
-    public static final PropertyBool UP = PropertyBool.create("up");
-    public static final PropertyBool DOWN = PropertyBool.create("down");
-    private static final PropertyEnum<EnumPipeType> MJ_PIPES = PropertyEnum.create("mj_pipes", EnumPipeType.class);
+    private static final PropertyEnum<EnumVoltage> MJ_PIPES = PropertyEnum.create("mj_pipes", EnumVoltage.class);
 
     public BlockPipeMJ() {
         super(Material.IRON);
         setHarvestLevel("pickaxe", 0);
         setCreativeTab(CreativeTabs.MISC);
-        setDefaultState(this.getBlockState().getBaseState().withProperty(MJ_PIPES, EnumPipeType.LV_PIPE));
+        setDefaultState(this.getBlockState().getBaseState().withProperty(MJ_PIPES, EnumVoltage.LOW));
     }
 
     @Override
     public String getNameFromMeta(int i) {
-        return EnumPipeType.VALUES[i].getName();
+        return EnumVoltage.values()[i].getName();
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(MJ_PIPES).getMeta();
+        return state.getValue(MJ_PIPES).ordinal();
     }
 
     @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(MJ_PIPES, EnumPipeType.VALUES[meta]);
+        return getDefaultState().withProperty(MJ_PIPES, EnumVoltage.values()[meta]);
     }
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TilePipeMJ(EnumPipeType.VALUES[meta]);
+        return new TilePipeMJ(EnumVoltage.values()[meta]);
     }
 
     @Nonnull
@@ -72,17 +67,20 @@ public class BlockPipeMJ extends GroovyBlockTileMeta {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
     @Nonnull
+    @SuppressWarnings("deprecation")
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
@@ -90,25 +88,8 @@ public class BlockPipeMJ extends GroovyBlockTileMeta {
     @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        for(EnumPipeType pipeType : EnumPipeType.VALUES) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), pipeType.getMeta(), new ModelResourceLocation(Objects.requireNonNull(getRegistryName()), "inventory"));
+        for(EnumVoltage pipeType : EnumVoltage.values()) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), pipeType.ordinal(), new ModelResourceLocation(Objects.requireNonNull(getRegistryName()), "inventory"));
         }
     }
-
-/*
-    @Override
-    @Nonnull
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        state = state.getActualState(source, pos);
-        float minSize = 0.3125F;
-        float maxSize =  0.6875F;
-
-        float minX = state.getValue(WEST) ? 0.0F : minSize;
-        float minY = state.getValue(DOWN) ? 0.0F : minSize;
-        float minZ = state.getValue(NORTH) ? 0.0F : minSize;
-        float maxX = state.getValue(EAST) ? 1.0F : maxSize;
-        float maxY = state.getValue(UP) ? 1.0F : maxSize;
-        float maxZ = state.getValue(SOUTH) ? 1.0F : maxSize;
-        return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY, (double) maxZ);
-    }*/
 }

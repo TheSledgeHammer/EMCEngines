@@ -39,6 +39,7 @@ public class BlockConverter extends GroovyBlockTileMeta {
 
     @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(TIER, EnumVoltage.values()[meta]);
     }

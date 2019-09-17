@@ -33,8 +33,6 @@ public class TileEmcEngineMJBase extends TileEmcMJ implements ITickable {
             } else if(tile instanceof IEmcProvider) {
                 IEmcProvider emcTile = (IEmcProvider) tile;
                 if(emcTile.getStoredEmc() > 0) {
-                    //emcTile.provideEMC(facing, emcManager.getMaxExtract());
-                    //long stored =+ emcTile.provideEMC(facing, Math.min(getMaximumEmc(), getStoredEmc()));
                     emcManager.drainEMC(emcTile.provideEMC(facing, emcExtract));
                     mj.generatePower(mjOut);
                 }

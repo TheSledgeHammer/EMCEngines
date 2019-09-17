@@ -30,18 +30,15 @@ import org.apache.logging.log4j.Logger;
 )
 public class EMCEngines {
 
-	public static final String MOD_ID = "emcengines";
+	public static final String MOD_ID = "com/thesledgehammer";
 	public static final String MOD_NAME = "EMCEngines";
 	public static final String VERSION = "1.0.0";
 	public static final String MCVERSION = "1.12.2";
 	//public static final String UPDATE_JSON = "@UPDATE@";
 
-	//@SidedProxy(clientSide = "com.thesledgehammer.retrobees.proxy.ClientProxy", serverSide = "com.thesledgehammer.retrobees.proxy.CommonProxy")
-	//public static CommonProxy proxy;
-
 	protected static GroovyLoader groovyLoader = new GroovyLoader(Constants.getMOD_PATH(), Constants.getRESOURCE_PATH(), "java", Constants.getURL(), MOD_ID);
 
-	@Mod.Instance("emcengines")
+	@Mod.Instance("com/thesledgehammer")
 	public static  EMCEngines instance;
 
 	public static Logger logger;

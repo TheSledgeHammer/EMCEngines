@@ -11,8 +11,8 @@ import net.minecraft.util.ITickable;
 
 public class TileEmcEngineMJBase extends TileEmcMJ implements ITickable {
 
-    public TileEmcEngineMJBase(String tileName, long mjCapacity, long mjTransfer, long maximumEmc, long emcCharge) {
-        super(tileName, mjCapacity, mjTransfer, maximumEmc, emcCharge);
+    public TileEmcEngineMJBase(long mjCapacity, long mjTransfer, long maximumEmc, long emcCharge) {
+        super(mjCapacity, mjTransfer, maximumEmc, emcCharge);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class TileEmcEngineMJBase extends TileEmcMJ implements ITickable {
                 }
             } else if(other.hasCapability(CapabilityMj.getMJ_STORAGE(), facing) || other.hasCapability(MjAPI.CAP_CONNECTOR, facing)) {
                 IMjStorage energyTile = other.getCapability(CapabilityMj.getMJ_STORAGE(), facing);
-                if(energyTile != null) {
-                    mj.drainPower(energyTile.receivePower(mjOut, false));
+                if(energyTile != null && canReceive()) {
+                    mj.drainPower(energyTile.receivePower(mj.getMaxReceive(), false));
                 }
             }
         }

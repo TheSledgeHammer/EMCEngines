@@ -50,10 +50,10 @@ public class ModBlocks {
         mjPipe = new BlockPipeMJ();
         registerBlock(mjPipe, new GroovyItemBlock<>(mjPipe), "mj_pipes");
         TileEntityTools.registerTileEntity(TilePipeMJ.class, "mj_pipes");
-
+/*
         emcEngineMJ = new BlockEmcEngine(EnumEmcEngineType.EMC_ENGINE_MJ);
         registerBlock(emcEngineMJ, new GroovyItemBlock<>(emcEngineMJ), "mj_engine");
-        emcEngineMJ.registerAdvancedTileEntity();
+        emcEngineMJ.registerAdvancedTileEntity();*/
 
         creativeEngine = new BlockEngine();
         registerBlock(creativeEngine, new GroovyItemBlock<>(creativeEngine), "creative_engine");

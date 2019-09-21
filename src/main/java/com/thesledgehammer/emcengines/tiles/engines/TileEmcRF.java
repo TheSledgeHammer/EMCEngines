@@ -14,7 +14,7 @@ public class TileEmcRF extends ForgeEnergyTile implements IEmcAcceptor, IEmcProv
 
     protected EmcManager emcManager;
 
-    public TileEmcRF(String tileName, int feCapacity, int feTransfer, long currentEMC, long maximumEMC) {
+    public TileEmcRF(int feCapacity, int feTransfer, long currentEMC, long maximumEMC) {
         super(feCapacity, feTransfer);
         emcManager = new EmcManager(maximumEMC, currentEMC);
     }

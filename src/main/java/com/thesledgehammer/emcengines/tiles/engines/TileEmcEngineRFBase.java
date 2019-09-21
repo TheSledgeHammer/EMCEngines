@@ -9,8 +9,8 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileEmcEngineRFBase extends TileEmcRF implements ITickable {
 
-    public TileEmcEngineRFBase(String tileName, int feCapacity, int feTransfer, long maximumEMC, long emcCurrent) {
-       super(tileName, feCapacity, feTransfer, maximumEMC, emcCurrent);
+    public TileEmcEngineRFBase(int feCapacity, int feTransfer, long maximumEMC, long emcCurrent) {
+       super(feCapacity, feTransfer, maximumEMC, emcCurrent);
     }
 
     @Override

@@ -53,15 +53,15 @@ public class TileRfMj extends GroovyTileBasic implements IMjStorage, IEnergyStor
 
             IEnergyStorage extractFE = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
             if(extractFE != null && extractFE.getEnergyStored() > 0) {
-                int toReceiveFE = extractFE.extractEnergy(fe.getMaxExtract(), true);
-                fe.generateEnergy(toReceiveFE);
+                int toReceive = extractFE.extractEnergy(fe.getMaxExtract(), true);
+                fe.generateEnergy(toReceive);
                 mj.generatePower(mj.getMaxExtract());
             }
 
             IMjStorage insertMJ = tile.getCapability(CapabilityMj.getMJ_STORAGE(), facing);
             if(insertMJ != null && getEnergyStored() > 0) {
-                int toExtractFE = extractEnergy(fe.getMaxExtract(), true);
-                fe.drainEnergy((int) insertMJ.receivePower(toExtractFE, false));
+                int toExtract = extractEnergy(fe.getMaxExtract(), true);
+                fe.drainEnergy((int) insertMJ.receivePower(toExtract, false));
                 mj.drainPower(mj.getMaxExtract());
             }
         }

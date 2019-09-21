@@ -14,7 +14,7 @@ public abstract class TileEmcMJ extends MinecraftJoulesTile implements IEmcAccep
 
     protected final EmcManager emcManager;
 
-    public TileEmcMJ(String tileName, long mjCapacity, long mjTransfer, long maximumEmc, long emcCharge) {
+    public TileEmcMJ(long mjCapacity, long mjTransfer, long maximumEmc, long emcCharge) {
         super(mjCapacity, mjTransfer);
         this.emcManager = new EmcManager(maximumEmc, emcCharge);
     }
